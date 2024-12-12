@@ -3,8 +3,9 @@ services:
     name: tglobal-assignment
     env: node
     plan: free
-    buildCommand: npm install && npm run build
+    buildCommand: npm ci && npm run build
     startCommand: npm run start:prod
+    nodeVersion: 20.11.1
     envVars:
       - key: NODE_ENV
         value: production
