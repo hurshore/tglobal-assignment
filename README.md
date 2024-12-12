@@ -1,99 +1,347 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Department Management API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A robust NestJS GraphQL API for managing departments and sub-departments, built with TypeORM and PostgreSQL.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- JWT-based authentication
+- Department management (CRUD operations)
+- Sub-department management (CRUD operations)
+- Input validation
+- Pagination support
+- PostgreSQL database with TypeORM
+- GraphQL API with NestJS
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Prerequisites
 
-## Project setup
+- Node.js (v20.11.1 or later)
+- Docker and Docker Compose
+- npm or yarn
+
+## Installation
+
+1. Clone the repository:
 
 ```bash
-$ npm install
+git clone <repository-url>
+cd tglobal-assignment
 ```
 
-## Compile and run the project
+2. Install dependencies:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+3. Create `.env` file from template:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cp .env.example .env
 ```
 
-## Deployment
+4. Update the `.env` file with your configuration:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_DATABASE=tglobal
+JWT_SECRET=your-secret-key
+```
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Running the Application
+
+1. Start the PostgreSQL database:
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+docker-compose up -d
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+2. Start the application:
 
-## Resources
+```bash
+# Development mode
+npm run start:dev
 
-Check out a few resources that may come in handy when working with NestJS:
+# Production mode
+npm run build
+npm run start:prod
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+The GraphQL playground will be available at: http://localhost:3000/graphql
 
-## Support
+## Initial Setup
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1. Create an admin user using the CLI:
 
-## Stay in touch
+```bash
+npm run cli -- create-user --username admin --password admin123
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+2. Get an authentication token by logging in:
 
-## License
+```graphql
+mutation {
+  login(username: "admin", password: "admin123") {
+    access_token
+  }
+}
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Use the returned token in the HTTP Headers for subsequent requests:
+
+```json
+{
+  "Authorization": "Bearer your-token-here"
+}
+```
+
+## Example GraphQL Operations
+
+### Departments
+
+1. Create a Department:
+
+```graphql
+mutation {
+  createDepartment(
+    input: {
+      name: "Finance"
+      subDepartments: [{ name: "Accounting" }, { name: "Budget" }]
+    }
+  ) {
+    id
+    name
+    subDepartments {
+      id
+      name
+    }
+  }
+}
+```
+
+2. Get All Departments (with pagination):
+
+```graphql
+query {
+  departments(pagination: { page: 1, limit: 10 }) {
+    items {
+      id
+      name
+      subDepartments {
+        id
+        name
+      }
+    }
+    total
+    page
+    limit
+    hasMore
+  }
+}
+```
+
+3. Get Department by ID:
+
+```graphql
+query {
+  department(id: 1) {
+    id
+    name
+    subDepartments {
+      id
+      name
+    }
+  }
+}
+```
+
+4. Get Department by Name:
+
+```graphql
+query {
+  departmentByName(name: "Finance") {
+    id
+    name
+    subDepartments {
+      id
+      name
+    }
+  }
+}
+```
+
+5. Update Department:
+
+```graphql
+mutation {
+  updateDepartment(input: { id: 1, name: "Financial Services" }) {
+    id
+    name
+    subDepartments {
+      id
+      name
+    }
+  }
+}
+```
+
+6. Delete Department:
+
+```graphql
+mutation {
+  removeDepartment(id: 1)
+}
+```
+
+### Sub-Departments
+
+1. Create a Sub-Department:
+
+```graphql
+mutation {
+  createSubDepartment(departmentId: 1, input: { name: "Tax" }) {
+    id
+    name
+    department {
+      id
+      name
+    }
+  }
+}
+```
+
+2. Get All Sub-Departments:
+
+```graphql
+query {
+  subDepartments {
+    id
+    name
+    department {
+      id
+      name
+    }
+  }
+}
+```
+
+3. Get Sub-Department by ID:
+
+```graphql
+query {
+  subDepartment(id: 1) {
+    id
+    name
+    department {
+      id
+      name
+    }
+  }
+}
+```
+
+4. Update Sub-Department:
+
+```graphql
+mutation {
+  updateSubDepartment(input: { id: 1, name: "Tax Planning" }) {
+    id
+    name
+    department {
+      id
+      name
+    }
+  }
+}
+```
+
+5. Delete Sub-Department:
+
+```graphql
+mutation {
+  removeSubDepartment(id: 1)
+}
+```
+
+## Error Handling
+
+The API includes comprehensive error handling for:
+
+- Invalid input validation
+- Duplicate department/sub-department names
+- Non-existent departments/sub-departments
+- Authentication errors
+- Database constraints
+
+## Security
+
+- All endpoints (except login) are protected with JWT authentication
+- Passwords are hashed using bcrypt
+- Environment variables are used for sensitive data
+- Input validation is enforced for all operations
+
+## Development
+
+- Run tests: `npm run test`
+- Run e2e tests: `npm run test:e2e`
+- Run linting: `npm run lint`
+- Format code: `npm run format`
+
+## Database Management
+
+- Reset database: `docker-compose down -v && docker-compose up -d`
+- View logs: `docker-compose logs -f postgres`
+
+## Deployment to Render
+
+1. Sign up for a [Render](https://render.com) account if you haven't already.
+
+2. Fork this repository to your GitHub account.
+
+3. From your Render dashboard:
+
+   - Click "New +"
+   - Select "Blueprint"
+   - Connect your GitHub account if you haven't already
+   - Select your forked repository
+   - Click "Connect"
+
+4. Render will automatically:
+
+   - Create a PostgreSQL database
+   - Deploy the web service
+   - Set up the environment variables
+
+5. Once deployed, you'll need to:
+
+   - Get the database credentials from the Render dashboard
+   - Create an admin user using the Render shell:
+     ```bash
+     npm run cli -- create-user --username admin --password your-password
+     ```
+   - Access your API at: `https://your-service-name.onrender.com/graphql`
+
+6. Important environment variables to set in Render dashboard:
+   - `JWT_SECRET`: Generate a secure random string
+   - All database variables will be automatically set
+
+## Render Configuration
+
+The `render.yaml` file in the repository root configures:
+
+- A web service running the NestJS application
+- A PostgreSQL database
+- Automatic environment variable linking
+- Build and start commands
+
+To modify the deployment configuration, edit the `render.yaml` file.
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/my-feature`
+3. Commit your changes: `git commit -am 'Add my feature'`
+4. Push to the branch: `git push origin feature/my-feature`
+5. Submit a pull request

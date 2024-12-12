@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: tglobal-assignment
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_HOST
+        fromDatabase:
+          name: tglobal-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: tglobal-db
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: tglobal-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: tglobal-db
+          property: password
+      - key: DB_DATABASE
+        fromDatabase:
+          name: tglobal-db
+          property: database
+      - key: JWT_SECRET
+        sync: false
+
+databases:
+  - name: tglobal-db
+    plan: free
