@@ -5,7 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { DepartmentsModule } from './departments/departments.module';
 import { User } from './users/entities/user.entity';
+import { Department } from './departments/entities/department.entity';
+import { SubDepartment } from './departments/entities/sub-department.entity';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AppResolver } from './app.resolver';
@@ -28,10 +31,11 @@ import { AppResolver } from './app.resolver';
       username: process.env.DB_USERNAME || 'postgres',
       password: process.env.DB_PASSWORD || 'postgres',
       database: process.env.DB_NAME || 'tglobal',
-      entities: [User],
+      entities: [User, Department, SubDepartment],
       synchronize: true, // Set to false in production
     }),
     AuthModule,
+    DepartmentsModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
