@@ -29,9 +29,12 @@ type LoginResponse {
 
 type Mutation {
   createDepartment(input: CreateDepartmentInput!): Department!
+  createSubDepartment(departmentId: Int!, input: CreateSubDepartmentInput!): SubDepartment!
   login(input: LoginInput!): LoginResponse!
   removeDepartment(id: Int!): Boolean!
+  removeSubDepartment(id: Int!): Boolean!
   updateDepartment(input: UpdateDepartmentInput!): Department!
+  updateSubDepartment(input: UpdateSubDepartmentInput!): SubDepartment!
 }
 
 type Query {
@@ -39,14 +42,22 @@ type Query {
   departmentByName(name: String!): Department!
   departments: [Department!]!
   healthCheck: String!
+  subDepartment(id: Int!): SubDepartment!
+  subDepartments: [SubDepartment!]!
 }
 
 type SubDepartment {
+  department: Department!
   id: ID!
   name: String!
 }
 
 input UpdateDepartmentInput {
+  id: Int!
+  name: String!
+}
+
+input UpdateSubDepartmentInput {
   id: Int!
   name: String!
 }

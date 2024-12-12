@@ -13,8 +13,9 @@ export class SubDepartment {
   @Column()
   name: string;
 
-  @ManyToOne(() => Department, department => department.subDepartments, {
-    onDelete: 'CASCADE'
+  @Field(() => Department)
+  @ManyToOne(() => Department, (department) => department.subDepartments, {
+    onDelete: 'CASCADE',
   })
   department: Department;
 }
