@@ -30,7 +30,9 @@ services:
           property: database
       - key: JWT_SECRET
         sync: false
+    autoDeploy: false
 
 databases:
   - name: tglobal-db
     plan: free
+    ipAllowList: []
