@@ -13,6 +13,8 @@ export class SubDepartment {
   @Column()
   name: string;
 
-  @ManyToOne(() => Department, department => department.subDepartments)
+  @ManyToOne(() => Department, department => department.subDepartments, {
+    onDelete: 'CASCADE'
+  })
   department: Department;
 }

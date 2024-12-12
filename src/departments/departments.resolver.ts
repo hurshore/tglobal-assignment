@@ -3,6 +3,7 @@ import { UseGuards } from '@nestjs/common';
 import { DepartmentsService } from './departments.service';
 import { Department } from './entities/department.entity';
 import { CreateDepartmentInput } from './dto/create-department.input';
+import { UpdateDepartmentInput } from './dto/update-department.input';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 
 @Resolver(() => Department)
@@ -28,5 +29,15 @@ export class DepartmentsResolver {
   @Query(() => Department, { name: 'departmentByName' })
   findByName(@Args('name') name: string) {
     return this.departmentsService.findByName(name);
+  }
+
+  @Mutation(() => Department)
+  updateDepartment(@Args('input') updateDepartmentInput: UpdateDepartmentInput) {
+    return this.departmentsService.update(updateDepartmentInput);
+  }
+
+  @Mutation(() => Boolean)
+  removeDepartment(@Args('id', { type: () => Int }) id: number) {
+    return this.departmentsService.remove(id);
   }
 }

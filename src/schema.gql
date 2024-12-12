@@ -30,6 +30,8 @@ type LoginResponse {
 type Mutation {
   createDepartment(input: CreateDepartmentInput!): Department!
   login(input: LoginInput!): LoginResponse!
+  removeDepartment(id: Int!): Boolean!
+  updateDepartment(input: UpdateDepartmentInput!): Department!
 }
 
 type Query {
@@ -41,6 +43,11 @@ type Query {
 
 type SubDepartment {
   id: ID!
+  name: String!
+}
+
+input UpdateDepartmentInput {
+  id: Int!
   name: String!
 }
 

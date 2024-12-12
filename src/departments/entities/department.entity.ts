@@ -15,7 +15,8 @@ export class Department {
 
   @Field(() => [SubDepartment], { nullable: true })
   @OneToMany(() => SubDepartment, subDepartment => subDepartment.department, {
-    cascade: true,
+    cascade: ['insert', 'update', 'remove'],
+    onDelete: 'CASCADE',
     eager: true
   })
   subDepartments?: SubDepartment[];
