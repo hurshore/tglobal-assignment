@@ -23,7 +23,7 @@ A robust NestJS GraphQL API for managing departments and sub-departments, built 
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/hurshore/tglobal-assignment.git
 cd tglobal-assignment
 ```
 
