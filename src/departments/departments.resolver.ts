@@ -5,6 +5,8 @@ import { Department } from './entities/department.entity';
 import { CreateDepartmentInput } from './dto/create-department.input';
 import { UpdateDepartmentInput } from './dto/update-department.input';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { PaginationInput } from '../common/dto/pagination.input';
+import { PaginatedDepartmentResponse } from './dto/paginated-departments.response';
 
 @Resolver(() => Department)
 @UseGuards(GqlAuthGuard)
@@ -16,9 +18,9 @@ export class DepartmentsResolver {
     return this.departmentsService.create(createDepartmentInput);
   }
 
-  @Query(() => [Department], { name: 'departments' })
-  findAll() {
-    return this.departmentsService.findAll();
+  @Query(() => PaginatedDepartmentResponse, { name: 'departments' })
+  findAll(@Args('pagination', { nullable: true }) pagination?: PaginationInput) {
+    return this.departmentsService.findAll(pagination);
   }
 
   @Query(() => Department, { name: 'department' })

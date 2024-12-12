@@ -5,6 +5,8 @@ import { Department } from './entities/department.entity';
 import { SubDepartment } from './entities/sub-department.entity';
 import { CreateDepartmentInput } from './dto/create-department.input';
 import { UpdateDepartmentInput } from './dto/update-department.input';
+import { PaginationInput } from '../common/dto/pagination.input';
+import { IPaginatedType } from '../common/dto/pagination-response';
 
 @Injectable()
 export class DepartmentsService {
@@ -42,13 +44,26 @@ export class DepartmentsService {
     }
   }
 
-  async findAll(): Promise<Department[]> {
-    return this.departmentRepository.find({
+  async findAll(paginationInput?: PaginationInput): Promise<IPaginatedType<Department>> {
+    const { page = 1, limit = 10 } = paginationInput || {};
+    const skip = (page - 1) * limit;
+
+    const [items, total] = await this.departmentRepository.findAndCount({
       relations: ['subDepartments'],
-      order: {
-        name: 'ASC',
-      },
+      order: { name: 'ASC' },
+      take: limit,
+      skip: skip,
     });
+
+    const hasMore = total > page * limit;
+
+    return {
+      items,
+      total,
+      page,
+      limit,
+      hasMore,
+    };
   }
 
   async findOne(id: number): Promise<Department> {
@@ -107,10 +122,7 @@ export class DepartmentsService {
 
   async remove(id: number): Promise<boolean> {
     const department = await this.findOne(id);
-
-    // Delete the department and its sub-departments (cascade is enabled in the entity)
     await this.departmentRepository.remove(department);
-
     return true;
   }
 }

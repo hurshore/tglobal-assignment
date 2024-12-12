@@ -37,10 +37,23 @@ type Mutation {
   updateSubDepartment(input: UpdateSubDepartmentInput!): SubDepartment!
 }
 
+type PaginatedDepartmentResponse {
+  hasMore: Boolean!
+  items: [Department!]!
+  limit: Int!
+  page: Int!
+  total: Int!
+}
+
+input PaginationInput {
+  limit: Int! = 10
+  page: Int! = 1
+}
+
 type Query {
   department(id: Int!): Department!
   departmentByName(name: String!): Department!
-  departments: [Department!]!
+  departments(pagination: PaginationInput): PaginatedDepartmentResponse!
   healthCheck: String!
   subDepartment(id: Int!): SubDepartment!
   subDepartments: [SubDepartment!]!
