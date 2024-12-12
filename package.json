@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "node node_modules/@nestjs/cli/bin/nest.js build",
+    "build": "npx @nestjs/cli build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -22,7 +22,7 @@
     "cli": "ts-node -r tsconfig-paths/register src/cli.ts"
   },
   "engines": {
-    "node": ">=20.11.1"
+    "node": "20.11.1"
   },
   "dependencies": {
     "@apollo/server": "^4.11.2",
