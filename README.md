@@ -18,28 +18,16 @@ A robust NestJS GraphQL API for managing departments and sub-departments, built 
 - Docker and Docker Compose
 - npm or yarn
 
-## Installation
+## Getting Started
 
-1. Clone the repository:
-
-```bash
-git clone https://github.com/hurshore/tglobal-assignment.git
-cd tglobal-assignment
-```
-
+1. Clone the repository
 2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-3. Create `.env` file from template:
-
-```bash
-cp .env.example .env
-```
-
-4. Update the `.env` file with your configuration:
+3. Create a `.env` file in the root directory with the following variables:
 
 ```env
 DB_HOST=localhost
@@ -50,36 +38,27 @@ DB_DATABASE=tglobal
 JWT_SECRET=your-secret-key
 ```
 
-## Running the Application
-
-1. Start the PostgreSQL database:
+4. Start the PostgreSQL database using Docker:
 
 ```bash
 docker-compose up -d
 ```
 
-2. Start the application:
+5. Start the application:
 
 ```bash
-# Development mode
 npm run start:dev
-
-# Production mode
-npm run build
-npm run start:prod
 ```
 
-The GraphQL playground will be available at: http://localhost:3000/graphql
+The application will automatically create an admin user on first startup with the following credentials:
+- Username: `admin`
+- Password: `admin123`
 
-## Initial Setup
+## Authentication
 
-1. Create an admin user using the CLI:
+To access protected endpoints, you need to:
 
-```bash
-npm run cli -- create-user --username admin --password admin123
-```
-
-2. Get an authentication token by logging in:
+1. Login using the admin credentials:
 
 ```graphql
 mutation {
@@ -92,11 +71,11 @@ mutation {
 }
 ```
 
-Use the returned token in the HTTP Headers for subsequent requests:
+2. Use the returned access token in subsequent requests by adding it to the HTTP headers:
 
 ```json
 {
-  "Authorization": "Bearer your-token-here"
+  "Authorization": "Bearer your-access-token"
 }
 ```
 
@@ -320,10 +299,6 @@ The API includes comprehensive error handling for:
 5. Once deployed, you'll need to:
 
    - Get the database credentials from the Render dashboard
-   - Create an admin user using the Render shell:
-     ```bash
-     npm run cli -- create-user --username admin --password your-password
-     ```
    - Access your API at: `https://your-service-name.onrender.com/graphql`
 
 6. Important environment variables to set in Render dashboard:
