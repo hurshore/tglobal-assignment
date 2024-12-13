@@ -83,8 +83,11 @@ npm run cli -- create-user --username admin --password admin123
 
 ```graphql
 mutation {
-  login(username: "admin", password: "admin123") {
+  login(input: { username: "admin", password: "admin123" }) {
     access_token
+    user {
+      username
+    }
   }
 }
 ```

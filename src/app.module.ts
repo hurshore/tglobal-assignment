@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnApplicationBootstrap } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -12,6 +12,8 @@ import { SubDepartment } from './departments/entities/sub-department.entity';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AppResolver } from './app.resolver';
+import { DataSource } from 'typeorm';
+import { createInitialUser } from './database/seeds/initial-user.seed';
 
 @Module({
   imports: [
@@ -44,4 +46,10 @@ import { AppResolver } from './app.resolver';
   controllers: [AppController],
   providers: [AppService, AppResolver],
 })
-export class AppModule {}
+export class AppModule implements OnApplicationBootstrap {
+  constructor(private dataSource: DataSource) {}
+
+  async onApplicationBootstrap() {
+    await createInitialUser(this.dataSource);
+  }
+}
