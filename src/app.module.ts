@@ -25,6 +25,8 @@ import { createInitialUser } from './database/seeds/initial-user.seed';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       playground: true,
+      path: '/graphql',
+      context: ({ req, res }) => ({ req, res }),
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
