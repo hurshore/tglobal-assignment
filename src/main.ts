@@ -4,12 +4,10 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: false });
-  
+
   // Enable CORS with specific configuration
   app.enableCors({
-    origin: process.env.NODE_ENV === 'production'
-      ? ['https://tglobal-fe.onrender.com', 'http://localhost:3000']
-      : 'http://localhost:3000',
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
